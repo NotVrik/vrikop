@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Celebration</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Left Section */
+        .left {
+            width: 50%;
+            height: 100vh;
+            background: url('images/backgroundimg.jpeg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+        }
+
+        .left h1 {
+            font-size: 4rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .left p {
+            font-size: 2rem;
+            margin-top: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Right Scrollable Section */
+        .right {
+            width: 50%;
+            height: 100vh;
+            margin-left: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a, #000000);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Scrollable Images Container */
+        .scroll-container {
+            width: 90%;
+            height: 90vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE/Edge */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/film-texture.png');
+            /* Film texture background */
+            background-size: cover;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Film Reel Images */
+        .film-reel {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        .film-reel img {
+            width: 80%;
+            max-width: 400px;
+            transition: all 0.5s ease-in-out;
+            border-radius: 15px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            opacity: 0.6;
+            filter: grayscale(50%);
+        }
+
+        /* Centered Image Styling */
+        .film-reel img.active {
+            width: 100%;
+            max-width: 500px;
+            opacity: 1;
+            transform: scale(1.1);
+            border: 5px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 12px 24px rgba(255, 255, 255, 0.6);
+            filter: grayscale(0%);
+            z-index: 10;
+        }
+
+        /* Glow Effect for Active Image */
+        .film-reel img.active::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.4);
+            z-index: -1;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .left h1 {
+                font-size: 3rem;
+            }
+
+            .left p {
+                font-size: 1.5rem;
+            }
+
+            .film-reel img {
+                width: 70%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .left h1 {
+                font-size: 2rem;
+            }
+
+            .left p {
+                font-size: 1.2rem;
+            }
+
+            .film-reel img {
+                width: 60%;
+                max-width: 300px;
+            }
+
+            .film-reel img.active {
+                width: 80%;
+                max-width: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left h1 {
+                font-size: 1.8rem;
+            }
+
+            .left p {
+                font-size: 1rem;
+            }
+
+            .film-reel img {
+                width: 80%;
+                max-width: 250px;
+            }
+
+            .film-reel img.active {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="left">
+        <h1>Happy Birthday!</h1>
+        <h1>Divya</h1>
+        <p>May this day fill your life with joy, love, and success.</p>
+    </div>
+    <div class="right">
+        <div class="scroll-container" id="scrollContainer">
+            <div class="film-reel" id="filmReel">
+                <img src="images/img1.jpeg" alt="Birthday Image 1">
+                <img src="images/img1.jpeg" alt="Birthday Image 2">
+                <img src="images/img1.jpeg" alt="Birthday Image 3">
+                <img src="images/img1.jpeg" alt="Birthday Image 4">
+                <img src="images/img1.jpeg" alt="Birthday Image 5">
+                <img src="images/img1.jpeg" alt="Birthday Image 6">
+                <img src="images/img1.jpeg" alt="Birthday Image 7">
+                <img src="images/img1.jpeg" alt="Birthday Image 8">
+                <img src="images/img1.jpeg" alt="Birthday Image 9">
+                <img src="images/img1.jpeg" alt="Birthday Image 10">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scrollContainer = document.getElementById("scrollContainer");
+        const images = document.querySelectorAll(".film-reel img");
+        let isScrolling;
+
+        function highlightCenterImage() {
+            let center = scrollContainer.scrollTop + scrollContainer.clientHeight / 2;
+
+            images.forEach(img => {
+                let imgCenter = img.offsetTop + img.height / 2;
+                let distance = Math.abs(center - imgCenter);
+
+                if (distance < img.height / 2) {
+                    img.classList.add("active");
+                } else {
+                    img.classList.remove("active");
+                }
+            });
+        }
+
+        // Smooth scroll to the next image on mouse wheel
+        scrollContainer.addEventListener("wheel", (e) => {
+            e.preventDefault();
+            clearTimeout(isScrolling);
+
+            const delta = e.deltaY;
+            const currentScroll = scrollContainer.scrollTop;
+            const imageHeight = images[0].clientHeight + 30; // 30px gap
+            const totalHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+
+            if (delta > 0) {
+                // Scroll down
+                if (currentScroll >= totalHeight) {
+                    // If at the bottom, scroll to the top
+                    scrollContainer.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                } else {
+                    scrollContainer.scrollTo({
+                        top: currentScroll + imageHeight,
+                        behavior: "smooth"
+                    });
+                }
+            } else {
+                // Scroll up
+                if (currentScroll <= 0) {
+                    // If at the top, scroll to the bottom
+                    scrollContainer.scrollTo({
+                        top: totalHeight,
+                        behavior: "smooth"
+                    });
+                } else {
+                    scrollContainer.scrollTo({
+                        top: currentScroll - imageHeight,
+                        behavior: "smooth"
+                    });
+                }
+            }
+
+            // Debounce to prevent multiple triggers
+            isScrolling = setTimeout(() => {
+                highlightCenterImage();
+            }, 100);
+        });
+
+        // Highlight the center image on touch scroll (mobile drag)
+        scrollContainer.addEventListener("touchmove", () => {
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(highlightCenterImage, 100);
+        });
+
+        // Highlight the center image on load
+        window.onload = highlightCenterImage;
+
+        // Highlight the center image on scroll
+        scrollContainer.addEventListener("scroll", () => {
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(highlightCenterImage, 100);
+        });
+    </script>
+</body>
+
+</html>
