@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +21,7 @@
             font-family: 'Great Vibes', cursive;
         }
 
+        /* LEFT SECTION */
         .left {
             width: 50%;
             height: 100vh;
@@ -34,6 +34,7 @@
             flex-direction: column;
             position: fixed;
             left: 0;
+            padding: 20px;
         }
 
         .left h1 {
@@ -47,6 +48,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
+        /* RIGHT SECTION */
         .right {
             width: 50%;
             height: 100vh;
@@ -57,9 +59,11 @@
             background: linear-gradient(135deg, #1a1a1a, #000000);
             position: relative;
             overflow: hidden;
+            padding: 20px;
         }
 
-        .carousel {
+        /* CAROUSEL */
+        .carousel-container {
             width: 100%;
             height: 90vh;
             overflow: hidden;
@@ -69,48 +73,62 @@
             align-items: center;
         }
 
-        .wrapper {
+        .carousel {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            will-change: transform;
-            position: absolute;
-            animation: scrolling 20s linear infinite;
+            scroll-behavior: smooth;
+            overflow-y: auto;
+            height: 90%;
+            scrollbar-width: none; /* Hide scrollbar */
         }
 
-        .wrapper img {
+        .carousel::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Webkit browsers */
+        }
+
+        .carousel img {
             width: 90%;
             max-width: 400px;
             border-radius: 15px;
             border: 5px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             opacity: 0.6;
-            transition: all 0.5s ease-in-out;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
 
-        .wrapper img.active {
+        /* Highlighted image */
+        .carousel img.active {
             opacity: 1;
             transform: scale(1.1);
             border: 5px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 12px 24px rgba(255, 255, 255, 0.6);
-            filter: grayscale(0%);
         }
 
-        @keyframes scrolling {
-            0% {
-                transform: translateY(0);
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
             }
-            100% {
-                transform: translateY(-50%);
-            }
-        }
 
-        .carousel:hover .wrapper {
-            animation-play-state: paused;
+            .left {
+                width: 100%;
+                height: 50vh;
+                position: relative;
+            }
+
+            .right {
+                width: 100%;
+                height: 50vh;
+                margin-left: 0;
+            }
+
+            .carousel-container {
+                height: 100%;
+            }
         }
     </style>
 </head>
-
 <body>
     <div class="left">
         <h1>Happy Birthday!</h1>
@@ -119,36 +137,72 @@
     </div>
 
     <div class="right">
-        <div class="carousel">
-            <div class="wrapper" id="wrapper">
-                <script>
-                    const wrapper = document.getElementById("wrapper");
-                    const imageSources = [
-                        "images/img1.jpeg", "images/img1.jpeg", "images/img1.jpeg", "images/img1.jpeg",
-                        "images/img1.jpeg", "images/img1.jpeg", "images/img1.jpeg", "images/img1.jpeg",
-                        "images/img1.jpeg", "images/img1.jpeg"
-                    ];
-                    
-                    function loadImages() {
-                        imageSources.forEach(src => {
-                            let img = document.createElement("img");
-                            img.src = src;
-                            img.alt = "Birthday Image";
-                            wrapper.appendChild(img);
-                        });
-                        imageSources.forEach(src => { // Duplicate for infinite scrolling
-                            let img = document.createElement("img");
-                            img.src = src;
-                            img.alt = "Birthday Image";
-                            wrapper.appendChild(img);
-                        });
-                    }
-                    
-                    document.addEventListener("DOMContentLoaded", loadImages);
-                </script>
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <!-- Original Images -->
+                <img src="images/img1.jpeg" alt="Image 1">
+                <img src="images/img2.jpeg" alt="Image 2">
+                <img src="images/img3.jpeg" alt="Image 3">
+                <img src="images/img4.jpeg" alt="Image 4">
+                <img src="images/img5.jpeg" alt="Image 5">
+                <img src="images/img6.jpeg" alt="Image 6">
+                <img src="images/img7.jpeg" alt="Image 7">
+                <img src="images/img8.jpeg" alt="Image 8">
+                <img src="images/img9.jpeg" alt="Image 9">
+                <img src="images/img10.jpeg" alt="Image 10">
             </div>
         </div>
     </div>
-</body>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const carousel = document.getElementById("carousel");
+
+            // Duplicate images to create a seamless loop
+            function duplicateImages() {
+                const images = Array.from(carousel.children);
+                images.forEach(img => {
+                    const clone = img.cloneNode(true);
+                    carousel.appendChild(clone);
+                });
+            }
+
+            duplicateImages(); // Duplicate once
+
+            // Infinite Scrolling Effect
+            function infiniteScroll() {
+                if (carousel.scrollTop === 0) {
+                    carousel.scrollTop = carousel.scrollHeight / 2;
+                } else if (carousel.scrollTop + carousel.clientHeight >= carousel.scrollHeight) {
+                    carousel.scrollTop = carousel.scrollHeight / 4;
+                }
+            }
+
+            carousel.addEventListener("scroll", infiniteScroll);
+
+            // Highlight Center Image
+            function highlightCenterImage() {
+                const images = Array.from(carousel.children);
+                const carouselRect = carousel.getBoundingClientRect();
+                const centerY = carouselRect.top + carouselRect.height / 2;
+
+                images.forEach(img => {
+                    const imgRect = img.getBoundingClientRect();
+                    const imgCenterY = imgRect.top + imgRect.height / 2;
+                    const distance = Math.abs(centerY - imgCenterY);
+
+                    img.classList.toggle("active", distance < imgRect.height / 2);
+                });
+            }
+
+            // Update Highlight on Scroll
+            function updateHighlight() {
+                highlightCenterImage();
+                requestAnimationFrame(updateHighlight);
+            }
+
+            updateHighlight(); // Start the loop
+        });
+    </script>
+</body>
 </html>
