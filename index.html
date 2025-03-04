@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,7 @@
             font-family: 'Great Vibes', cursive;
         }
 
-        /* LEFT SECTION */
+        /* Left Section */
         .left {
             width: 50%;
             height: 100vh;
@@ -31,10 +32,10 @@
             justify-content: center;
             text-align: center;
             color: white;
+            padding: 20px;
             flex-direction: column;
             position: fixed;
             left: 0;
-            padding: 20px;
         }
 
         .left h1 {
@@ -48,7 +49,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        /* RIGHT SECTION */
+        /* Right Scrollable Section */
         .right {
             width: 50%;
             height: 100vh;
@@ -56,79 +57,105 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1a1a1a, #000000);
+            background: linear-gradient(135deg, #1a1a1a, #000000); /* Black gradient background */
             position: relative;
             overflow: hidden;
+        }
+
+        /* Scrollable Images Container */
+        .scroll-container {
+            width: 90%;
+            height: 90vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/texture.jpeg'); /* Background image for the grey part */
+            background-size: cover;
+            border-radius: 15px;
             padding: 20px;
         }
 
-        /* CAROUSEL */
-        .carousel-container {
-            width: 100%;
-            height: 90vh;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* Hide scrollbar */
+        .scroll-container::-webkit-scrollbar {
+            display: none;
         }
 
-        .carousel {
+        /* Film Reel Images */
+        .film-reel {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            scroll-behavior: smooth;
-            overflow-y: auto;
-            height: 90%;
-            scrollbar-width: none; /* Hide scrollbar */
+            align-items: center;
+            padding: 20px 0;
         }
 
-        .carousel::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Webkit browsers */
-        }
-
-        .carousel img {
+        .film-reel img {
             width: 90%;
             max-width: 400px;
+            transition: all 0.5s ease-in-out;
             border-radius: 15px;
             border: 5px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             opacity: 0.6;
-            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            filter: grayscale(50%);
         }
 
-        /* Highlighted image */
-        .carousel img.active {
+        /* Highlight Center Image */
+        .film-reel img.active {
+            width: 100%;
+            max-width: 500px;
             opacity: 1;
             transform: scale(1.1);
             border: 5px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 12px 24px rgba(255, 255, 255, 0.6);
+            filter: grayscale(0%);
+            z-index: 10;
         }
 
-        /* RESPONSIVE DESIGN */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
+            .left h1 {
+                font-size: 2rem;
             }
 
-            .left {
-                width: 100%;
-                height: 50vh;
-                position: relative;
+            .left p {
+                font-size: 1.2rem;
             }
 
-            .right {
-                width: 100%;
-                height: 50vh;
-                margin-left: 0;
+            .film-reel img {
+                max-width: 300px;
             }
 
-            .carousel-container {
-                height: 100%;
+            .film-reel img.active {
+                max-width: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left h1 {
+                font-size: 1.8rem;
+            }
+
+            .left p {
+                font-size: 1rem;
+            }
+
+            .film-reel img {
+                max-width: 250px;
+            }
+
+            .film-reel img.active {
+                max-width: 300px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="left">
         <h1>Happy Birthday!</h1>
@@ -137,72 +164,85 @@
     </div>
 
     <div class="right">
-        <div class="carousel-container">
-            <div class="carousel" id="carousel">
-                <!-- Original Images -->
+        <div class="scroll-container" id="scrollContainer">
+            <div class="film-reel" id="filmReel">
+                <!-- Images -->
                 <img src="images/img1.jpeg" alt="Image 1">
-                <img src="images/img2.jpeg" alt="Image 2">
-                <img src="images/img3.jpeg" alt="Image 3">
-                <img src="images/img4.jpeg" alt="Image 4">
-                <img src="images/img5.jpeg" alt="Image 5">
-                <img src="images/img6.jpeg" alt="Image 6">
-                <img src="images/img7.jpeg" alt="Image 7">
-                <img src="images/img8.jpeg" alt="Image 8">
-                <img src="images/img9.jpeg" alt="Image 9">
-                <img src="images/img10.jpeg" alt="Image 10">
+                <img src="images/img1.jpeg" alt="Image 2">
+                <img src="images/img1.jpeg" alt="Image 3">
+                <img src="images/img1.jpeg" alt="Image 4">
+                <img src="images/img1.jpeg" alt="Image 5">
+                <img src="images/img1.jpeg" alt="Image 6">
+                <img src="images/img1.jpeg" alt="Image 7">
+                <img src="images/img1.jpeg" alt="Image 8">
+                <img src="images/img1.jpeg" alt="Image 9">
+                <img src="images/img1.jpeg" alt="Image 10">
+                <!--Duplicate Images-->
+                <img src="images/img1.jpeg" alt="Image 1">
+                <img src="images/img1.jpeg" alt="Image 2">
+                <img src="images/img1.jpeg" alt="Image 3">
+                <img src="images/img1.jpeg" alt="Image 4">
+                <img src="images/img1.jpeg" alt="Image 5">
+                <img src="images/img1.jpeg" alt="Image 6">
+                <img src="images/img1.jpeg" alt="Image 7">
+                <img src="images/img1.jpeg" alt="Image 8">
+                <img src="images/img1.jpeg" alt="Image 9">
+                <img src="images/img1.jpeg" alt="Image 10">
             </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const carousel = document.getElementById("carousel");
+        const scrollContainer = document.getElementById("scrollContainer");
+        const filmReel = document.getElementById("filmReel");
+        let images = Array.from(filmReel.children);
+        let autoScrollInterval;
 
-            // Duplicate images to create a seamless loop
-            function duplicateImages() {
-                const images = Array.from(carousel.children);
-                images.forEach(img => {
-                    const clone = img.cloneNode(true);
-                    carousel.appendChild(clone);
-                });
+        function duplicateImages() {
+            images.forEach(img => {
+                let clone = img.cloneNode(true);
+                filmReel.appendChild(clone);
+            });
+            images = Array.from(filmReel.children);
+        }
+
+        function highlightCenterImage() {
+            let center = scrollContainer.scrollTop + scrollContainer.clientHeight / 2;
+            images.forEach(img => {
+                let imgCenter = img.offsetTop + img.height / 2;
+                img.classList.toggle("active", Math.abs(center - imgCenter) < img.height / 2);
+            });
+        }
+
+        function resetScrollPosition() {
+            const imageHeight = images[0].clientHeight + 20;
+            const totalImages = images.length / 2;
+
+            if (scrollContainer.scrollTop <= imageHeight) {
+                scrollContainer.scrollTo({ top: totalImages * imageHeight, behavior: "auto" });
+            } else if (scrollContainer.scrollTop >= totalImages * imageHeight * 2) {
+                scrollContainer.scrollTo({ top: totalImages * imageHeight, behavior: "auto" });
             }
+        }
 
-            duplicateImages(); // Duplicate once
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                scrollContainer.scrollBy({ top: images[0].clientHeight + 20, behavior: "smooth" });
+            }, 3000);
+        }
 
-            // Infinite Scrolling Effect
-            function infiniteScroll() {
-                if (carousel.scrollTop === 0) {
-                    carousel.scrollTop = carousel.scrollHeight / 2;
-                } else if (carousel.scrollTop + carousel.clientHeight >= carousel.scrollHeight) {
-                    carousel.scrollTop = carousel.scrollHeight / 4;
-                }
-            }
-
-            carousel.addEventListener("scroll", infiniteScroll);
-
-            // Highlight Center Image
-            function highlightCenterImage() {
-                const images = Array.from(carousel.children);
-                const carouselRect = carousel.getBoundingClientRect();
-                const centerY = carouselRect.top + carouselRect.height / 2;
-
-                images.forEach(img => {
-                    const imgRect = img.getBoundingClientRect();
-                    const imgCenterY = imgRect.top + imgRect.height / 2;
-                    const distance = Math.abs(centerY - imgCenterY);
-
-                    img.classList.toggle("active", distance < imgRect.height / 2);
-                });
-            }
-
-            // Update Highlight on Scroll
-            function updateHighlight() {
-                highlightCenterImage();
-                requestAnimationFrame(updateHighlight);
-            }
-
-            updateHighlight(); // Start the loop
+        scrollContainer.addEventListener("scroll", () => {
+            clearTimeout(autoScrollInterval);
+            highlightCenterImage();
+            resetScrollPosition();
         });
+
+        window.onload = () => {
+            duplicateImages();
+            highlightCenterImage();
+            startAutoScroll();
+        };
     </script>
 </body>
+
 </html>
