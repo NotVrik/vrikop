@@ -22,7 +22,6 @@
             font-family: 'Great Vibes', cursive;
         }
 
-        /* Left Section */
         .left {
             width: 50%;
             height: 100vh;
@@ -32,7 +31,6 @@
             justify-content: center;
             text-align: center;
             color: white;
-            padding: 20px;
             flex-direction: column;
             position: fixed;
             left: 0;
@@ -49,7 +47,6 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        /* Right Scrollable Section */
         .right {
             width: 50%;
             height: 100vh;
@@ -62,96 +59,54 @@
             overflow: hidden;
         }
 
-        /* Scrollable Images Container */
-        .scroll-container {
-            width: 90%;
+        .carousel {
+            width: 100%;
             height: 90vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            overflow: hidden;
             position: relative;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/film-texture.png');
-            background-size: cover;
-            border-radius: 15px;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Hide scrollbar */
-        .scroll-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Film Reel Images */
-        .film-reel {
+        .wrapper {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            align-items: center;
-            padding: 20px 0;
+            will-change: transform;
+            position: absolute;
+            animation: scrolling 20s linear infinite;
         }
 
-        .film-reel img {
+        .wrapper img {
             width: 90%;
             max-width: 400px;
-            transition: all 0.5s ease-in-out;
             border-radius: 15px;
             border: 5px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             opacity: 0.6;
-            filter: grayscale(50%);
+            transition: all 0.5s ease-in-out;
         }
 
-        /* Highlight Center Image */
-        .film-reel img.active {
-            width: 100%;
-            max-width: 500px;
+        .wrapper img.active {
             opacity: 1;
             transform: scale(1.1);
             border: 5px solid rgba(255, 255, 255, 0.8);
             box-shadow: 0 12px 24px rgba(255, 255, 255, 0.6);
             filter: grayscale(0%);
-            z-index: 10;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .left h1 {
-                font-size: 2rem;
+        @keyframes scrolling {
+            0% {
+                transform: translateY(0);
             }
-
-            .left p {
-                font-size: 1.2rem;
-            }
-
-            .film-reel img {
-                max-width: 300px;
-            }
-
-            .film-reel img.active {
-                max-width: 350px;
+            100% {
+                transform: translateY(-50%);
             }
         }
 
-        @media (max-width: 480px) {
-            .left h1 {
-                font-size: 1.8rem;
-            }
-
-            .left p {
-                font-size: 1rem;
-            }
-
-            .film-reel img {
-                max-width: 250px;
-            }
-
-            .film-reel img.active {
-                max-width: 300px;
-            }
+        .carousel:hover .wrapper {
+            animation-play-state: paused;
         }
     </style>
 </head>
@@ -164,74 +119,36 @@
     </div>
 
     <div class="right">
-        <div class="scroll-container" id="scrollContainer">
-            <div class="film-reel" id="filmReel">
-                <!-- Images -->
-                <img src="images/img1.jpeg" alt="Image 1">
-                <img src="images/img1.jpeg" alt="Image 2">
-                <img src="images/img1.jpeg" alt="Image 3">
-                <img src="images/img1.jpeg" alt="Image 4">
-                <img src="images/img1.jpeg" alt="Image 5">
-                <img src="images/img1.jpeg" alt="Image 6">
-                <img src="images/img1.jpeg" alt="Image 7">
-                <img src="images/img1.jpeg" alt="Image 8">
-                <img src="images/img1.jpeg" alt="Image 9">
-                <img src="images/img1jpeg" alt="Image 10">
+        <div class="carousel">
+            <div class="wrapper" id="wrapper">
+                <script>
+                    const wrapper = document.getElementById("wrapper");
+                    const imageSources = [
+                        "images/img1.jpeg", "images/img1.jpeg", "images/img1.jpeg", "images/img1.jpeg",
+                        "images/img1.jpeg", "images/img1.jpeg", "images/img1.jpeg", "images/img1.jpeg",
+                        "images/img1.jpeg", "images/img1.jpeg"
+                    ];
+                    
+                    function loadImages() {
+                        imageSources.forEach(src => {
+                            let img = document.createElement("img");
+                            img.src = src;
+                            img.alt = "Birthday Image";
+                            wrapper.appendChild(img);
+                        });
+                        imageSources.forEach(src => { // Duplicate for infinite scrolling
+                            let img = document.createElement("img");
+                            img.src = src;
+                            img.alt = "Birthday Image";
+                            wrapper.appendChild(img);
+                        });
+                    }
+                    
+                    document.addEventListener("DOMContentLoaded", loadImages);
+                </script>
             </div>
         </div>
     </div>
-
-    <script>
-        const scrollContainer = document.getElementById("scrollContainer");
-        const filmReel = document.getElementById("filmReel");
-        let images = Array.from(filmReel.children);
-        let autoScrollInterval;
-
-        function duplicateImages() {
-            images.forEach(img => {
-                let clone = img.cloneNode(true);
-                filmReel.appendChild(clone);
-            });
-            images = Array.from(filmReel.children);
-        }
-
-        function highlightCenterImage() {
-            let center = scrollContainer.scrollTop + scrollContainer.clientHeight / 2;
-            images.forEach(img => {
-                let imgCenter = img.offsetTop + img.height / 2;
-                img.classList.toggle("active", Math.abs(center - imgCenter) < img.height / 2);
-            });
-        }
-
-        function resetScrollPosition() {
-            const imageHeight = images[0].clientHeight + 20;
-            const totalImages = images.length / 2;
-
-            if (scrollContainer.scrollTop <= imageHeight) {
-                scrollContainer.scrollTo({ top: totalImages * imageHeight, behavior: "auto" });
-            } else if (scrollContainer.scrollTop >= totalImages * imageHeight * 2) {
-                scrollContainer.scrollTo({ top: totalImages * imageHeight, behavior: "auto" });
-            }
-        }
-
-        function startAutoScroll() {
-            autoScrollInterval = setInterval(() => {
-                scrollContainer.scrollBy({ top: images[0].clientHeight + 20, behavior: "smooth" });
-            }, 3000);
-        }
-
-        scrollContainer.addEventListener("scroll", () => {
-            clearTimeout(autoScrollInterval);
-            highlightCenterImage();
-            resetScrollPosition();
-        });
-
-        window.onload = () => {
-            duplicateImages();
-            highlightCenterImage();
-            startAutoScroll();
-        };
-    </script>
 </body>
 
 </html>
